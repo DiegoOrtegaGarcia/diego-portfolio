@@ -22,7 +22,7 @@ export const Dashboard = () => {
         }`}>
           <div className="flex items-center space-x-4">
             {menuItems.map((item) => (
-                <NavButton button={item} darkMode={darkMode}/>
+                <NavButton button={item} darkMode={darkMode} key={item.id}/>
             ))}
 
             <div className={`h-8 w-px ${
