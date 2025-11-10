@@ -1,3 +1,5 @@
+import foto from '../../../assets/foto.png';
+
 export const HomeContainer = () => {
     const darkMode = true
   return (
@@ -9,7 +11,7 @@ export const HomeContainer = () => {
             <div className="relative">
               <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 shadow-2xl">
                 <img 
-                  src="/foto.png"
+                  src={foto}
                   alt="Diego - Desarrollador Full Stack"
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -18,8 +20,8 @@ export const HomeContainer = () => {
                 />
               </div>
               
-              <div className={`absolute -inset-4 rounded-full border-2 ${
-                darkMode ? 'border-red-400' : 'border-red-600'
+              <div className={`absolute -inset-4 rounded-full border-4 ${
+                darkMode ? 'border-red-500' : 'border-red-700'
               } opacity-20 animate-pulse`}></div>
             </div>
           </div>
