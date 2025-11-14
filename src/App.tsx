@@ -3,7 +3,7 @@ import {Dashboard} from './core/components/Dashboard'
 import { useThemeStore } from './core/storage/themeStorage'
 import { AboutMeContainer } from './modules/AboutMe/container/AboutMeContainer'
 import { FooterContainer } from './modules/Footer/Container/FooterContainer'
-import { HomeContainer } from './modules/home/components/homeContainer'
+import { HomeContainer } from './modules/home/container/homeContainer'
 import { ProjectsContainer } from './modules/proyects/container/proyectsContainer'
 import { TechnologiesContainer } from './modules/tecnologias/container/tecnologiasContainer'
 
