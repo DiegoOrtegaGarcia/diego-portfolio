@@ -1,163 +1,122 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useThemeStore } from "../../../core/storage/themeStorage";
-
-const technologies = [
-  { 
-    name: "Vue", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "React", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "TypeScript", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "JavaScript", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "Tailwind CSS", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "CSS", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "HTML", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "Three.js", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
-    category: "Frontend"
-  },
-  { 
-    name: "PHP", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
-    category: "Backend"
-  },
-  { 
-    name: "C#", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
-    category: "Backend"
-  },
-  { 
-    name: "ASP.NET", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg",
-    category: "Backend"
-  },
-  { 
-    name: "Laravel", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
-    category: "Backend"
-  },
-  { 
-    name: "MySQL", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-    category: "Database"
-  },
-  { 
-    name: "MongoDB", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-    category: "Database"
-  },
-  { 
-    name: "Git", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-    category: "Herramientas"
-  },
-  { 
-    name: "Docker", 
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-    category: "Herramientas"
-  },
-];
+import { useTecnologiasContainer } from "../hooks/useTecnologiasContainer";
 
 export const TechnologiesContainer = () => {
   const { darkMode } = useThemeStore();
-
-  const categories = [...new Set(technologies.map(tech => tech.category))];
-
+  const {sectionRef,titleRef,subtitleRef,categories,addToCategoryCardsRef,getCategoryGradient,technologies,addToTechItemsRef} = useTecnologiasContainer()
   return (
-    <section id="technologies" className="min-h-screen py-20 px-4">
-      <div className="container mx-auto">
+    <section 
+      id="technologies" 
+      ref={sectionRef}
+      className={`min-h-screen py-20 px-4 relative overflow-hidden ${
+        darkMode ? 'bg-gray-900' : 'bg-white'
+      }`}
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-10 left-10 w-64 h-64 rounded-full blur-3xl opacity-10 ${
+          darkMode ? 'bg-blue-500' : 'bg-blue-400'
+        }`}></div>
+        <div className={`absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-10 ${
+          darkMode ? 'bg-purple-500' : 'bg-purple-400'
+        }`}></div>
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-5 ${
+          darkMode ? 'bg-green-500' : 'bg-green-400'
+        }`}></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+        <div className="text-center mb-20">
+          <h2 
+            ref={titleRef}
+            className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
+          >
             Mi <span className="text-blue-600 dark:text-blue-400">Stack</span> Tecnológico
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p 
+            ref={subtitleRef}
+            className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+          >
             Tecnologías que domino y utilizo para crear aplicaciones modernas
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {categories.map(category => (
+          {categories.map((category:any) => (
             <div
               key={category}
-              className={`rounded-2xl p-6 shadow-xl border transition-all duration-300 hover:shadow-2xl ${
+              ref={addToCategoryCardsRef}
+              className={`group relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 backdrop-blur-sm border ${
                 darkMode 
-                  ? 'bg-gray-800 border-gray-700 hover:border-gray-600' 
-                  : 'bg-white border-gray-200 hover:border-gray-300'
+                  ? 'bg-gray-800/80 border-gray-700 hover:border-gray-600 hover:bg-gray-800/90' 
+                  : 'bg-white/80 border-gray-200 hover:border-gray-300 hover:bg-white/90'
               }`}
             >
-              {/* Header de la Card */}
-              <div className="text-center mb-6">
-                <h3 className={`text-2xl font-bold ${
-                  darkMode ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {category}
-                </h3>
-                <div className={`w-16 h-1 mx-auto mt-2 rounded-full ${
-                  category === 'Frontend' ? 'bg-blue-500' :
-                  category === 'Backend' ? 'bg-green-500' :
-                  category === 'Database' ? 'bg-purple-500' : 'bg-orange-500'
-                }`}></div>
-              </div>
+              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${getCategoryGradient(category)} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+              
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center gap-3 mb-4">
+                    <div className={`w-8 h-0.5 rounded-full bg-gradient-to-r ${getCategoryGradient(category)}`}></div>
+                    <h3 className={`text-2xl font-bold bg-gradient-to-r ${getCategoryGradient(category)} bg-clip-text text-transparent`}>
+                      {category}
+                    </h3>
+                    <div className={`w-8 h-0.5 rounded-full bg-gradient-to-l ${getCategoryGradient(category)}`}></div>
+                  </div>
+                  
+                  <div className={`w-20 h-1 mx-auto rounded-full bg-gradient-to-r ${getCategoryGradient(category)}`}></div>
+                </div>
 
-              {/* Grid de tecnologías dentro de la card */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {technologies
-                  .filter(tech => tech.category === category)
-                  .map(tech => (
-                    <div
-                      key={tech.name}
-                      className={`flex flex-col items-center p-4 rounded-xl transition-all duration-300 transform hover:scale-105 group ${
-                        darkMode 
-                          ? 'bg-gray-700 hover:bg-gray-600' 
-                          : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
-                      }`}
-                    >
-                      <div className="w-12 h-12 mb-2 flex items-center justify-center">
-                        <img
-                          src={tech.logo}
-                          alt={tech.name}
-                          className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
-                        />
-                        <div 
-                          className="tech-fallback hidden text-lg font-bold"
-                          style={{ display: 'none' }}
-                        >
-                          {tech.name.charAt(0)}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {technologies
+                    .filter(tech => tech.category === category)
+                    .map((tech) => (
+                      <div
+                        key={tech.name}
+                        ref={addToTechItemsRef}
+                        className={`group/tech relative flex flex-col items-center p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 ${
+                          darkMode 
+                            ? 'bg-gray-700/50 hover:bg-gray-700 border border-gray-600/50 hover:border-gray-500' 
+                            : 'bg-gray-50/80 hover:bg-white border border-gray-200/80 hover:border-gray-300'
+                        } backdrop-blur-sm`}
+                      >
+                        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tech.color} opacity-0 group-hover/tech:opacity-10 transition-opacity duration-300`}></div>
+                        
+                        <div className="relative z-10 w-14 h-14 mb-3 flex items-center justify-center">
+                          <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${tech.color} opacity-20 group-hover/tech:opacity-30 transition-opacity duration-300`}></div>
+                          <img
+                            src={tech.logo}
+                            alt={tech.name}
+                            className="w-8 h-8 object-contain group-hover/tech:scale-125 transition-transform duration-300 filter drop-shadow-lg"
+                          />
+                          <div 
+                            className={`hidden text-lg font-bold bg-gradient-to-br ${tech.color} bg-clip-text text-transparent`}
+                          >
+                            {tech.name.charAt(0)}
+                          </div>
+                        </div>
+                        
+                        <span className={`text-xs font-semibold text-center relative z-10 ${
+                          darkMode ? 'text-gray-300' : 'text-gray-700'
+                        } group-hover/tech:text-transparent group-hover/tech:bg-gradient-to-r group-hover/tech:from-gray-700 group-hover/tech:to-gray-900 group-hover/tech:dark:from-gray-300 group-hover/tech:dark:to-gray-100 group-hover/tech:bg-clip-text`}>
+                          {tech.name}
+                        </span>
+                        <div className={`absolute -top-12 opacity-0 group-hover/tech:opacity-100 group-hover/tech:-translate-y-2 transition-all duration-300 pointer-events-none z-20 ${
+                          darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+                        } px-3 py-2 rounded-lg shadow-xl border text-sm font-medium whitespace-nowrap`}>
+                          {tech.name}
+                          <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 ${
+                            darkMode ? 'bg-gray-800' : 'bg-white'
+                          } border-b border-r`}></div>
                         </div>
                       </div>
-                      <span className={`text-xs font-medium text-center ${
-                        darkMode ? 'text-gray-300' : 'text-gray-700'
-                      }`}>
-                        {tech.name}
-                      </span>
-                    </div>
-                  ))}
+                    ))}
+                </div>
+              </div>
+
+              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${getCategoryGradient(category)} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`}>
+                <div className={`absolute inset-[2px] rounded-3xl ${darkMode ? 'bg-gray-900' : 'bg-white'}`}></div>
               </div>
             </div>
           ))}

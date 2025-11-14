@@ -1,41 +1,13 @@
-import { Mail, Github, Linkedin } from 'lucide-react';
 import { useThemeStore } from '../../../core/storage/themeStorage';
+import { contactButtons } from '../../../core/const/constants';
 
 export const FooterContainer = () => {
   const { darkMode } = useThemeStore();
 
-  const contactButtons = [
-    {
-      name: 'Email',
-      icon: Mail,
-      url: 'mailto:tu.email@ejemplo.com',
-      description: 'Envíame un correo',
-      neonColor: 'red',
-      hoverShadow: 'hover:shadow-[0_0_30px_rgba(239,68,68,0.9)]'
-    },
-    {
-      name: 'GitHub',
-      icon: Github,
-      url: 'https://github.com/tuusuario',
-      description: 'Mira mi código',
-      neonColor: 'gray',
-      hoverShadow: 'hover:shadow-[0_0_30px_rgba(156,163,175,0.9)]'
-    },
-    {
-      name: 'LinkedIn',
-      icon: Linkedin,
-      url: 'https://linkedin.com/in/tuusuario',
-      description: 'Conectemos',
-      neonColor: 'blue', 
-      hoverShadow: 'hover:shadow-[0_0_30px_rgba(59,130,246,0.9)]'
-    }
-  ];
-
   return (
-    <section id="contact" className="min-h-screen py-20 px-4">
+    <section id="contact" className="py-20 px-4">
       <div className="container mx-auto">
         
-        {/* Título */}
         <div className="text-center mb-16">
           <h2 className={`text-5xl md:text-6xl font-bold mb-6 ${
             darkMode ? 'text-white' : 'text-gray-900'
@@ -80,8 +52,6 @@ export const FooterContainer = () => {
             );
           })}
         </div>
-
-        {/* Mensaje adicional */}
         <div className="text-center mt-16">
           <p className={`text-lg ${
             darkMode ? 'text-gray-400' : 'text-gray-600'
