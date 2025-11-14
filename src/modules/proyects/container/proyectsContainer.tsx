@@ -1,138 +1,78 @@
-import { ExternalLink, Github } from 'lucide-react';
-import foto from '../../../assets/fondo.jpg';
+import {Zap } from 'lucide-react';
 import { useThemeStore } from '../../../core/storage/themeStorage';
-
-const projectsData = [
-  {
-    id: '1',
-    title: 'Gestion de ventas',
-    description: 'Aplicacion empresarial que permite la gestion de ventas de un negocio',
-    longDescription: 'Una aplicación de gestion completa con carrito de compras, sistema de autenticación, administrarion de clientes y productos. Desarrollada con React, Node.js y MongoDB.',
-    image: foto,
-    technologies: ['React', 'Laravel', 'MySQl', 'Typescript'],
-    githubUrl: 'https://github.com/tuusuario/ecommerce',
-    liveUrl: 'https://mi-ecommerce.com',
-    featured: true,
-    category: 'Full Stack'
-  },
-  {
-    id: '2',
-    title: 'App de Tareas',
-    description: 'Aplicación de gestión de tareas con drag & drop',
-    longDescription: 'Una aplicación web responsive para gestión de tareas personales y de equipo. Incluye funcionalidades de arrastrar y soltar, categorías, fechas de vencimiento y notificaciones.',
-    image: foto,
-    technologies: ['React', 'TypeScript', 'Tailwind', 'Firebase'],
-    githubUrl: 'https://github.com/tuusuario/task-app',
-    liveUrl: 'https://mitaskapp.com',
-    featured: true,
-    category: 'Frontend'
-  },
-  {
-    id: '3',
-    title: 'Dashboard Analytics',
-    description: 'Panel de control con gráficos y métricas en tiempo real',
-    longDescription: 'Dashboard interactivo para visualización de datos con gráficos dinámicos, tablas paginadas y filtros avanzados. Conexión con APIs REST y WebSockets para datos en tiempo real.',
-    image: foto,
-    technologies: ['React', 'D3.js', 'Socket.io', 'Python', 'PostgreSQL'],
-    githubUrl: 'https://github.com/tuusuario/dashboard',
-    liveUrl: 'https://midashboard.com',
-    featured: false,
-    category: 'Full Stack'
-  },
-  {
-    id: '4',
-    title: 'Portfolio Personal',
-    description: 'Sitio web personal responsive y moderno',
-    longDescription: 'Portfolio personal desarrollado con las últimas tecnologías web. Diseño moderno, optimizado para SEO y completamente responsive.',
-    image: foto,
-    technologies: ['React', 'Tailwind CSS', 'TypeScript', 'Vite'],
-    githubUrl: 'https://github.com/tuusuario/portfolio',
-    liveUrl: 'https://miportfolio.com',
-    featured: false,
-    category: 'Frontend'
-  }
-];
-
+import { ProyectCard } from '../components/ProyectCard';
+import { projectsData } from '../../../core/const/constants';
+import { useProyectContainer } from '../hook/useProyectContainer';
 
 export const ProjectsContainer = () => {
   const { darkMode } = useThemeStore();
-
+  const {sectionRef,subtitleRef,titleRef,addToProjectsRef}=useProyectContainer()
   return (
-    <section id="projects" className="min-h-screen py-20 px-4">
-      <div className="container mx-auto">
+    <section 
+      id="projects" 
+      ref={sectionRef}
+      className="min-h-screen py-20 px-4 relative overflow-hidden"
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-10 left-10 w-64 h-64 rounded-full blur-3xl opacity-5 ${
+          darkMode ? 'bg-blue-500' : 'bg-blue-400'
+        }`}></div>
+        <div className={`absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-5 ${
+          darkMode ? 'bg-purple-500' : 'bg-purple-400'
+        }`}></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className={`w-12 h-0.5 rounded-full ${
+              darkMode ? 'bg-blue-400' : 'bg-blue-600'
+            }`}></div>
+            <Zap className={`w-6 h-6 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} />
+            <div className={`w-12 h-0.5 rounded-full ${
+              darkMode ? 'bg-blue-400' : 'bg-blue-600'
+            }`}></div>
+          </div>
+
+          <h2 ref={titleRef} className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
             Mis <span className="text-blue-600 dark:text-blue-400">Proyectos</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Descubre algunos de mis trabajos más recientes
+          
+          <p ref={subtitleRef} className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Descubre mis trabajos donde combino{' '}
+            <span className={`font-semibold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+              creatividad
+            </span>{' '}
+            y{' '}
+            <span className={`font-semibold ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
+              tecnología
+            </span>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {projectsData.map(project => (
-            <div
-              key={project.id}
-              className={`rounded-xl overflow-hidden shadow-lg border transition-all duration-300 hover:shadow-xl ${
-                darkMode 
-                  ? 'bg-gray-800 border-gray-700' 
-                  : 'bg-white border-gray-200'
-              }`}
-            >
-              {/* Contenedor de imagen más grande */}
-              <div className="h-64 overflow-hidden"> {/* Cambiado de h-48 a h-64 */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map(tech => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex gap-3">
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      className="flex items-center gap-2 px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-                    >
-                      <Github size={16} />
-                      Code
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    >
-                      <ExternalLink size={16} />
-                      Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {projectsData.map((project) => (
+            <ProyectCard project={project} addToProjectsRef={addToProjectsRef}/>
           ))}
+        </div>
+
+        <div className="text-center mt-16">
+          <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'} mb-6`}>
+            ¿Interesado en trabajar juntos?
+          </p>
+          <a 
+            href='https://github.com/DiegoOrtegaGarcia' 
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 border-2 inline-block ${
+              darkMode 
+                ? 'border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white' 
+                : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
+            }`}
+          >
+            Ver Más Proyectos
+          </a>
         </div>
       </div>
     </section>
