@@ -1,31 +1,58 @@
 import { Code2, GraduationCap, Heart, MapPin } from 'lucide-react';
 import { useThemeStore } from '../../../core/storage/themeStorage';
+import { useAboutMeContainer } from '../hook/useAboutMeContainer';
+
 
 export const AboutMeContainer = () => {
   const { darkMode } = useThemeStore();
-
+  const {sectionRef,titleRef,subtitleRef,contentRef,infoCardRef,addToFeatureCardsRef}=useAboutMeContainer()
   return (
-    <section id="about" className="min-h-screen py-20 px-4">
-      <div className="container mx-auto">
+    <section 
+      id="about" 
+      ref={sectionRef}
+      className={`min-h-screen py-20 px-4 relative overflow-hidden ${
+        darkMode ? 'bg-gray-900' : 'bg-white'
+      }`}
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl opacity-10 ${
+          darkMode ? 'bg-red-500' : 'bg-red-400'
+        }`}></div>
+        <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+          darkMode ? 'bg-blue-500' : 'bg-blue-400'
+        }`}></div>
+        <div className={`absolute top-10 right-10 w-64 h-64 rounded-full blur-3xl opacity-5 ${
+          darkMode ? 'bg-purple-500' : 'bg-purple-400'
+        }`}></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
         
-        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}>
+          <h2 
+            ref={titleRef}
+            className={`text-4xl md:text-5xl font-bold mb-4 ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}
+          >
             Sobre <span className="text-blue-600 dark:text-blue-400">Mí</span>
           </h2>
-          <p className={`text-xl max-w-2xl mx-auto ${
-            darkMode ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          <p 
+            ref={subtitleRef}
+            className={`text-xl max-w-2xl mx-auto ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
             Conoce más sobre mi journey en el mundo del desarrollo
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
           
-          {/* Información Personal */}
-          <div className="space-y-6">
+          <div 
+            ref={contentRef}
+            className="space-y-6"
+          >
             <div>
               <h3 className={`text-3xl font-bold mb-4 ${
                 darkMode ? 'text-white' : 'text-gray-900'
@@ -55,16 +82,17 @@ export const AboutMeContainer = () => {
                 <p className={`text-lg leading-relaxed ${
                   darkMode ? 'text-gray-300' : 'text-gray-600'
                 }`}>
-                  Aunque aún no tengo experiencia laboral formal en el ámbito, he dedicado incontables horas a <span className="font-semibold">proyectos personales</span> y al autoaprendizaje, construciendo una base sólida en desarrollo full-stack.
+                  Aunque aún no tengo experiencia laboral formal en el ámbito, he dedicado incontables horas a <span className="font-semibold">proyectos personales</span> y al autoaprendizaje, construyendo una base sólida en desarrollo full-stack.
                 </p>
               </div>
             </div>
 
-            {/* Estadísticas/Puntos destacados */}
             <div className="grid grid-cols-2 gap-4 pt-6">
-              <div className={`text-center p-4 rounded-xl ${
-                darkMode ? 'bg-gray-800' : 'bg-blue-50'
-              }`}>
+              <div 
+                className={`text-center p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
+                  darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-blue-50 hover:bg-blue-100'
+                }`}
+              >
                 <div className="flex justify-center mb-2">
                   <Code2 className={`${darkMode ? 'text-blue-400' : 'text-blue-600'}`} size={24} />
                 </div>
@@ -80,9 +108,11 @@ export const AboutMeContainer = () => {
                 </p>
               </div>
 
-              <div className={`text-center p-4 rounded-xl ${
-                darkMode ? 'bg-gray-800' : 'bg-green-50'
-              }`}>
+              <div 
+                className={`text-center p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
+                  darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-green-50 hover:bg-green-100'
+                }`}
+              >
                 <div className="flex justify-center mb-2">
                   <Heart className={`${darkMode ? 'text-green-400' : 'text-green-600'}`} size={24} />
                 </div>
@@ -100,10 +130,12 @@ export const AboutMeContainer = () => {
             </div>
           </div>
 
-          {/* Tarjeta de Información */}
-          <div className={`rounded-2xl p-8 ${
-            darkMode ? 'bg-gray-800' : 'bg-white shadow-xl'
-          }`}>
+          <div 
+            ref={infoCardRef}
+            className={`rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl ${
+              darkMode ? 'bg-gray-800 hover:bg-gray-750' : 'bg-white shadow-xl hover:shadow-2xl'
+            }`}
+          >
             <h4 className={`text-2xl font-bold mb-6 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
@@ -112,7 +144,7 @@ export const AboutMeContainer = () => {
             
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${
+                <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   darkMode ? 'bg-blue-900 text-blue-300' : 'bg-blue-100 text-blue-600'
                 }`}>
                   <MapPin size={20} />
@@ -126,7 +158,7 @@ export const AboutMeContainer = () => {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${
+                <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   darkMode ? 'bg-green-900 text-green-300' : 'bg-green-100 text-green-600'
                 }`}>
                   <GraduationCap size={20} />
@@ -140,7 +172,7 @@ export const AboutMeContainer = () => {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${
+                <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   darkMode ? 'bg-purple-900 text-purple-300' : 'bg-purple-100 text-purple-600'
                 }`}>
                   <Code2 size={20} />
@@ -154,7 +186,7 @@ export const AboutMeContainer = () => {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-full ${
+                <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                   darkMode ? 'bg-orange-900 text-orange-300' : 'bg-orange-100 text-orange-600'
                 }`}>
                   <Heart size={20} />
@@ -168,9 +200,8 @@ export const AboutMeContainer = () => {
               </div>
             </div>
 
-            {/* CTA */}
-            <div className={`mt-8 p-4 rounded-xl ${
-              darkMode ? 'bg-gray-700' : 'bg-gray-100'
+            <div className={`mt-8 p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
+              darkMode ? 'bg-gray-700 hover:bg-gray-650' : 'bg-gray-100 hover:bg-gray-200'
             }`}>
               <p className={`text-center ${
                 darkMode ? 'text-gray-300' : 'text-gray-600'
@@ -181,13 +212,15 @@ export const AboutMeContainer = () => {
           </div>
         </div>
 
-        {/* Sección de Valores */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
-          <div className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
-            darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
-          }`}>
+          <div 
+            ref={addToFeatureCardsRef}
+            className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
+              darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
+            }`}
+          >
             <div className="flex justify-center mb-4">
-              <div className={`p-3 rounded-full ${
+              <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                 darkMode ? 'bg-blue-900 text-blue-300' : 'bg-blue-100 text-blue-600'
               }`}>
                 <GraduationCap size={24} />
@@ -203,11 +236,14 @@ export const AboutMeContainer = () => {
             </p>
           </div>
 
-          <div className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
-            darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
-          }`}>
+          <div 
+            ref={addToFeatureCardsRef}
+            className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
+              darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
+            }`}
+          >
             <div className="flex justify-center mb-4">
-              <div className={`p-3 rounded-full ${
+              <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                 darkMode ? 'bg-green-900 text-green-300' : 'bg-green-100 text-green-600'
               }`}>
                 <Heart size={24} />
@@ -223,11 +259,14 @@ export const AboutMeContainer = () => {
             </p>
           </div>
 
-          <div className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
-            darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
-          }`}>
+          <div 
+            ref={addToFeatureCardsRef}
+            className={`text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105 ${
+              darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50 shadow-lg'
+            }`}
+          >
             <div className="flex justify-center mb-4">
-              <div className={`p-3 rounded-full ${
+              <div className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
                 darkMode ? 'bg-purple-900 text-purple-300' : 'bg-purple-100 text-purple-600'
               }`}>
                 <Code2 size={24} />
