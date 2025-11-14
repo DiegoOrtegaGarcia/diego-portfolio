@@ -1,7 +1,8 @@
 import foto from '../../../assets/foto.png';
+import { useThemeStore } from '../../../core/storage/themeStorage';
 
 export const HomeContainer = () => {
-    const darkMode = true
+    const { darkMode } = useThemeStore();
   return (
     <section id="home" className="min-h-screen flex items-center justify-center py-16 px-4">
       <div className="container mx-auto">
