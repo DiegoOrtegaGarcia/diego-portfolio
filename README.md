@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# Portfolio (Next.js)
+Portafolio personal construido con Next.js (App Router), React, TypeScript, TailwindCSS, GSAP (animaciones) y Zustand (tema).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Requisitos
+- Node.js 18+ (recomendado)
+- npm 9+
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Scripts
+```bash
+npm run dev     # desarrollo
+npm run build   # build producción
+npm run start   # servir build
+npm run lint    # lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Estructura del proyecto
+- `app/`
+  - `layout.tsx`: metadata/SEO base y providers
+  - `page.tsx`: composición del portfolio
+  - `robots.ts`: genera `/robots.txt`
+  - `sitemap.ts`: genera `/sitemap.xml`
+- `components/portfolio/`: secciones, dashboard y hooks
+- `data/portfolio.ts`: data estática (proyectos, tecnologías, contactos)
+- `lib/themeStore.ts`: store Zustand para dark mode
+- `public/images/`: imágenes locales usadas por `next/image`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## SEO / Indexación
+- `robots.txt` se genera desde `app/robots.ts`
+- `sitemap.xml` se genera desde `app/sitemap.ts`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Para que `robots.txt` y `sitemap.xml` apunten al dominio real, define la variable:
+- `NEXT_PUBLIC_SITE_URL` (ej: `https://tu-dominio.com`)
+
+## Deploy
+### Opción A (recomendada): Vercel
+1. Sube el proyecto a GitHub/GitLab/Bitbucket.
+2. Entra a Vercel y selecciona “New Project”.
+3. Importa el repositorio.
+4. Settings típicos:
+   - Framework: Next.js (auto-detect)
+   - Build Command: `npm run build`
+   - Output: (auto)
+5. Variables de entorno (recomendadas):
+   - `NEXT_PUBLIC_SITE_URL` = `https://tu-proyecto.vercel.app` (o tu dominio)
+6. Deploy.
+
+Cada push a `main` dispara un deploy. Para dominio propio: Project Settings → Domains.
+
+### Opción B: servidor propio (Node)
+1. Build:
+   ```bash
+   npm ci
+   npm run build
+   ```
+2. Run:
+   ```bash
+   npm run start
+   ```
+3. Coloca un reverse proxy (Nginx/Apache) hacia el puerto de Next (por defecto 3000) y configura HTTPS.
+
+## Notas de performance
+- Imágenes locales servidas desde `public/` usando `next/image`.
+- Animaciones (GSAP) están aisladas en Client Components para no afectar SSR.
+- Se evita lint/typecheck del proyecto original (si existe una carpeta legacy).
