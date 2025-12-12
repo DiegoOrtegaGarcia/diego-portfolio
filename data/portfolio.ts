@@ -48,7 +48,7 @@ export const projects: Project[] = [
     description: 'Aplicacion empresarial que permite la gestion de ventas de un negocio',
     image: '/images/proyect_1.png',
     technologies: ['React', 'Laravel', 'MySQl', 'Typescript'],
-    githubUrl: 'https://github.com/tuusuario/ecommerce',
+    githubUrl: 'https://github.com/DiegoOrtegaGarcia/management-of-a-company-s-internal-sales',
     category: 'Full Stack',
   },
   {
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     description: 'Muestra la informacion del Sistema Solar y sus planetas de una forma muy visual con 3D',
     image: '/images/proyect_3.png',
     technologies: ['Typescript', 'Vue', 'Veutify', 'Three.js'],
-    githubUrl: 'https://github.com/tuusuario/dashboard',
+    githubUrl: 'https://github.com/DiegoOrtegaGarcia/Sistema-Solar-3D-Experience',
     category: 'Frontend',
   },
   {
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     description: 'ChatBot especializado para que hable como cubano',
     image: '/images/proyect_4.png',
     technologies: ['React', 'Laravel', 'Typescript', 'Taildwind'],
-    githubUrl: 'https://github.com/tuusuario/portfolio',
+    githubUrl: 'https://github.com/DiegoOrtegaGarcia/ChatBot-Cubano',
     category: 'Full Stack',
   },
 ];
