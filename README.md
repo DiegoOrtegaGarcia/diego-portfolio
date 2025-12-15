@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio (Next.js)
+Portafolio personal construido con Next.js (App Router), React, TypeScript, TailwindCSS, GSAP (animaciones) y Zustand (tema).
 
-## Getting Started
+## Requisitos
+- Node.js 18+ (recomendado)
+- npm 9+
 
-First, run the development server:
-
+## Scripts
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # desarrollo
+npm run build   # build producción
+npm run start   # servir build
+npm run lint    # lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura del proyecto
+- `app/`
+  - `layout.tsx`: metadata/SEO base y providers
+  - `page.tsx`: composición del portfolio
+  - `robots.ts`: genera `/robots.txt`
+  - `sitemap.ts`: genera `/sitemap.xml`
+- `components/portfolio/`: secciones, dashboard y hooks
+- `data/portfolio.ts`: data estática (proyectos, tecnologías, contactos)
+- `lib/themeStore.ts`: store Zustand para dark mode
+- `public/images/`: imágenes locales usadas por `next/image`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## SEO / Indexación
+- `robots.txt` se genera desde `app/robots.ts`
+- `sitemap.xml` se genera desde `app/sitemap.ts`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para que `robots.txt` y `sitemap.xml` apunten al dominio real, define la variable:
+- `NEXT_PUBLIC_SITE_URL` (ej: `https://tu-dominio.com`)
 
-## Learn More
+## Deploy
+### Opción A (recomendada): Vercel
+1. Sube el proyecto a GitHub/GitLab/Bitbucket.
+2. Entra a Vercel y selecciona “New Project”.
+3. Importa el repositorio.
+4. Settings típicos:
+   - Framework: Next.js (auto-detect)
+   - Build Command: `npm run build`
+   - Output: (auto)
+5. Variables de entorno (recomendadas):
+   - `NEXT_PUBLIC_SITE_URL` = `https://tu-proyecto.vercel.app` (o tu dominio)
+6. Deploy.
 
-To learn more about Next.js, take a look at the following resources:
+Cada push a `main` dispara un deploy. Para dominio propio: Project Settings → Domains.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Opción B: servidor propio (Node)
+1. Build:
+   ```bash
+   npm ci
+   npm run build
+   ```
+2. Run:
+   ```bash
+   npm run start
+   ```
+3. Coloca un reverse proxy (Nginx/Apache) hacia el puerto de Next (por defecto 3000) y configura HTTPS.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notas de performance
+- Imágenes locales servidas desde `public/` usando `next/image`.
+- Animaciones (GSAP) están aisladas en Client Components para no afectar SSR.
+- Se evita lint/typecheck del proyecto original (si existe una carpeta legacy).

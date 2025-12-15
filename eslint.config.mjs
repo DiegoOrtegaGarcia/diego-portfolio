@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+
+    // No queremos lint en el proyecto fuente (Vite/React) ni en su build.
+    "proyecto-Migrar/**",
   ]),
 ]);
 
