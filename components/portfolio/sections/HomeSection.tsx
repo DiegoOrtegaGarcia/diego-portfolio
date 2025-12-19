@@ -109,7 +109,8 @@ export function HomeSection() {
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-8"
               >
                 <a
-                  href="/cv.pdf"
+                  href="/cv/DIEGO_ORTEGA_CV.pdf"
+                  download="DIEGO_ORTEGA_CV.pdf"
                   className={`group relative px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 border-2 overflow-hidden inline-flex items-center justify-center ${
                     darkMode
                       ? 'border-red-500 text-red-500 hover:bg-red-500 hover:text-white'
@@ -117,7 +118,7 @@ export function HomeSection() {
                   }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    <Download size={20} />
+                    <Download size={20} href='/cv/DIEGO_ORTEGA_CV.pdf'/>
                     Descargar CV
                   </span>
                   <div
