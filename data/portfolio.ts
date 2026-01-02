@@ -10,7 +10,7 @@ export type Project = {
   id: string;
   title: string;
   description: string;
-  image: string; // public path
+  image: string;
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
@@ -19,9 +19,9 @@ export type Project = {
 
 export type Technology = {
   name: string;
-  logo: string; // remote url
+  logo: string;
   category: string;
-  color: string; // tailwind gradient
+  color: string;
 };
 
 export type ContactButton = {
@@ -191,7 +191,6 @@ export const technologies: Technology[] = [
   },
 ];
 
-// Icons (lucide) se importan aquí para mantener la data en un único punto.
 import { Mail, Github, Linkedin } from 'lucide-react';
 
 export const contactButtons: ContactButton[] = [

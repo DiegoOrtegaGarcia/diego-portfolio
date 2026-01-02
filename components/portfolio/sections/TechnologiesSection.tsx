@@ -105,7 +105,7 @@ export function TechnologiesSection() {
                           <div
                             className={`absolute inset-0 rounded-xl bg-gradient-to-br ${tech.color} opacity-20 group-hover/tech:opacity-30 transition-opacity duration-300`}
                           />
-                          {/* Mantengo <img> porque son SVG remotos; next/image requiere configuración adicional */}
+                        
                           <img
                             src={tech.logo}
                             alt={tech.name}
